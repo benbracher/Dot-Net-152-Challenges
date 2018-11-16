@@ -67,19 +67,27 @@ namespace Challenge_3
             {
                 case 1:
                     Console.WriteLine("Cost of golf outings: ");
-                    _outingRepository.SortAndTotalCostByType("golf");
+                    Console.WriteLine($"${_outingRepository.SortAndTotalCostByType("golf")}");
+                    Console.WriteLine("Press any key to return to menu...");
+                    Console.ReadKey();
                     break;
                 case 2:
                     Console.WriteLine("Cost of bowling outings: ");
-                    _outingRepository.SortAndTotalCostByType("bowling");
+                    Console.WriteLine($"${_outingRepository.SortAndTotalCostByType("bowling")}");
+                    Console.WriteLine("Press any key to return to menu...");
+                    Console.ReadKey();
                     break;
                 case 3:
                     Console.WriteLine("Cost of amusement park outings: ");
-                    _outingRepository.SortAndTotalCostByType("amusement park");
+                    Console.WriteLine($"${_outingRepository.SortAndTotalCostByType("amusement park")}");
+                    Console.WriteLine("Press any key to return to menu...");
+                    Console.ReadKey();
                     break;
                 case 4:
                     Console.WriteLine("Cost of concert outings: ");
-                    _outingRepository.SortAndTotalCostByType("concert");
+                    Console.WriteLine($"{_outingRepository.SortAndTotalCostByType("concert")}");
+                    Console.WriteLine("Press any key to return to menu...");
+                    Console.ReadKey();
                     break;
                 case 5:
                     break;

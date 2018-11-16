@@ -20,7 +20,7 @@ namespace Challenge_3
             return _listOfOutings;
         }
 
-        public List<Outing> SortAndTotalCostByType(string response)
+        public decimal SortAndTotalCostByType(string response)
         {
             var cost = 0.0m;
             var outingsByType = _listOfOutings.FindAll(l => l.EventType == response);
@@ -28,7 +28,7 @@ namespace Challenge_3
             {
                 cost = cost + outing.EventCost;
             }
-            return outingsByType;
+            return cost;
         }
 
         public decimal TotalOutingListCost()
