@@ -15,7 +15,12 @@ namespace Challenge_4
                 _dictionaryOfBadges[badge.BadgeID] = badge.Door;
         }
 
-        public Dictionary<int, List<string>> GetBadgeList()
+        public List<string> GetBadgeList(int badgeId)
+        {
+            return _dictionaryOfBadges[badgeId];
+        }
+
+        public Dictionary<int, List<string>> GetBadges()
         {
             return _dictionaryOfBadges;
         }

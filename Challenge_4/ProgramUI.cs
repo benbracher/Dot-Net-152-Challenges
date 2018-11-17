@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Challenge_4
 {
-    public class ProgramUI
+    class ProgramUI
     {
         BadgeRepository _badgeRepository = new BadgeRepository();
 
@@ -59,15 +59,15 @@ namespace Challenge_4
             List<string> doors = new List<string>();
             Console.WriteLine("Enter badge ID #:");
             badge.BadgeID = int.Parse(Console.ReadLine());
-            badge.Door = AddDoorsToBadge();
+            badge.Door = new List<string>();
+            AddDoorsToBadge(badge.Door);
 
             _badgeRepository.AddBadgeToDictionary(badge);
             ReturnToMenu();
         }
 
-        private List<string> AddDoorsToBadge()
+        private void AddDoorsToBadge(List<string> doors)
         {
-            var doors = new List<string>();
             Console.WriteLine("Would you like to add a door(y/n)");
             var response = Console.ReadLine();
             while (response == "y")
@@ -79,17 +79,14 @@ namespace Challenge_4
                 Console.WriteLine("Would you like to add another door(y/n):");
                 response = Console.ReadLine();
             }
-            return doors;
         }
 
         private void UpdateDoorsToBadge()
         {
-            Badge badge = new Badge();
             Console.WriteLine("Which key would you like to update access to:");
             DisplayListOfBadges();
-            badge.BadgeID = int.Parse(Console.ReadLine());
-            AddDoorsToBadge();
-            _badgeRepository.AddBadgeToDictionary(badge);
+            var badgeId = int.Parse(Console.ReadLine());
+            AddDoorsToBadge(_badgeRepository.GetBadgeList(badgeId));
             ReturnToMenu();
         }
 
@@ -98,7 +95,8 @@ namespace Challenge_4
             Console.WriteLine("Which badge would you like to remove access to:");
             DisplayListOfBadges();
             int response = int.Parse(Console.ReadLine());
-            _badgeRepository.GetBadgeList()[response] = new List<string>();
+            List<string> doors = _badgeRepository.GetBadgeList(response);
+            doors.Clear();
             ReturnToMenu();
         }
 
@@ -106,7 +104,7 @@ namespace Challenge_4
         {
             Console.WriteLine("Badge # -- Door Access");
             int i = 0;
-            foreach (var badge in _badgeRepository.GetBadgeList())
+            foreach (var badge in _badgeRepository.GetBadges())
             {
                 i++;
                 int key = badge.Key;
@@ -129,7 +127,7 @@ namespace Challenge_4
         private void DisplayListOfBadges()
         {
             int i = 0;
-            foreach (var badge in _badgeRepository.GetBadgeList())
+            foreach (var badge in _badgeRepository.GetBadges())
             {
                 i++;
                 int key = badge.Key;
