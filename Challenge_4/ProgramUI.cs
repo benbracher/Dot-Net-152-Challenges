@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Challenge_4
 {
-    class ProgramUI
+    public class ProgramUI
     {
         BadgeRepository _badgeRepository = new BadgeRepository();
 
@@ -60,6 +60,8 @@ namespace Challenge_4
             Console.WriteLine("Enter badge ID #:");
             badge.BadgeID = int.Parse(Console.ReadLine());
             badge.Door = AddDoorsToBadge();
+
+            _badgeRepository.AddBadgeToDictionary(badge);
             ReturnToMenu();
         }
 
@@ -82,11 +84,21 @@ namespace Challenge_4
 
         private void UpdateDoorsToBadge()
         {
+            Badge badge = new Badge();
+            Console.WriteLine("Which key would you like to update access to:");
+            DisplayListOfBadges();
+            badge.BadgeID = int.Parse(Console.ReadLine());
+            AddDoorsToBadge();
+            _badgeRepository.AddBadgeToDictionary(badge);
             ReturnToMenu();
         }
 
         private void DeleteDoorsOnBadge()
         {
+            Console.WriteLine("Which badge would you like to remove access to:");
+            DisplayListOfBadges();
+            int response = int.Parse(Console.ReadLine());
+            _badgeRepository.GetBadgeList()[response] = new List<string>();
             ReturnToMenu();
         }
 
@@ -94,18 +106,35 @@ namespace Challenge_4
         {
             Console.WriteLine("Badge # -- Door Access");
             int i = 0;
-            foreach (Badge badge in _badgeRepository.GetBadgeList())
+            foreach (var badge in _badgeRepository.GetBadgeList())
             {
                 i++;
-                Console.WriteLine($"{badge.BadgeID} -- {badge.Door}");
+                int key = badge.Key;
+                List<string> list = badge.Value;
+                Console.Write($"\nKey = {key}  -- Value = ");
+                foreach (var d in list)
+                {
+                    Console.Write($"{d.ToString()}, ");
+                }
             }
             ReturnToMenu();
         }
 
         private void ReturnToMenu()
         {
-            Console.WriteLine("Press any key to return to menu...");
+            Console.WriteLine("\nPress any key to return to menu...");
             Console.ReadKey();
+        }
+
+        private void DisplayListOfBadges()
+        {
+            int i = 0;
+            foreach (var badge in _badgeRepository.GetBadgeList())
+            {
+                i++;
+                int key = badge.Key;
+                Console.WriteLine($"#{key}");
+            }
         }
     }
 }
